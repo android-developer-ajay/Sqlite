@@ -52,18 +52,36 @@ public class MainActivity extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this, "" + c.getCount(), Toast.LENGTH_SHORT).show();
 
                 ArrayList<String> empName = new ArrayList<String>();
+
                 if (c.moveToFirst()) {
 
                     while (c.isAfterLast() == false) {
                         String name = c.getString(c
-                                .getColumnIndex("id"));
+                                .getColumnIndex("name"));
 
                         empName.add(name);
                         c.moveToNext();
                     }
                 }
-                Toast.makeText(MainActivity.this, "" + empName.size(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "" + empName.get(0), Toast.LENGTH_SHORT).show();
 
+            }
+        });
+        update = (Button) findViewById(R.id.update);
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean result = new Sqllite(MainActivity.this).update(1, "aj", "123", "ajayggi00", "45");
+                Toast.makeText(MainActivity.this, "" + result, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        delete = (Button) findViewById(R.id.delete);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean b = new Sqllite(MainActivity.this).Delete(1);
+                Toast.makeText(MainActivity.this, "a" + b, Toast.LENGTH_SHORT).show();
             }
         });
     }

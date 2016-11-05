@@ -67,18 +67,25 @@ public class Sqllite extends SQLiteOpenHelper {
         return res;
     }
 
-    public void abc() {
-        SQLiteDatabase db = this.getWritableDatabase();
+    public boolean update(int id, String name, String phone, String email, String street) {
+        SQLiteDatabase db = this.getReadableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("", "");
-        db.insert(DbTableName, null, cv);
+        cv.put("name", name);
+        cv.put("phone", phone);
+        cv.put("email", email);
+        cv.put("street", street);
+        db.update(DbTableName, cv, "id = ?", new String[]{Integer.toString(id)});
+        return true;
 
-        SQLiteDatabase db1 = this.getReadableDatabase();
-        int a = (int) DatabaseUtils.queryNumEntries(db1, DbTableName);
 
-        SQLiteDatabase db2 = this.getReadableDatabase();
-        Cursor c = db2.rawQuery("SELECT * From " + DbTableName, null);
+    }
 
+    public boolean Delete(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.delete(DbTableName, " id = ? ", new String[]{Integer.toString(id)});
+
+
+        return true;
     }
 }
 
